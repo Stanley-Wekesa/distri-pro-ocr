@@ -1,0 +1,17 @@
+services:
+  distri-pro-ocr:
+    build: .
+    container_name: distri-pro-ocr
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATA_DIR: /var/data
+      PORT: 8080
+    ports:
+      # Bind to the VM's private LAN IP, not 0.0.0.0.
+      # Change this address to the OCR VM's reserved/static IP.
+      - "192.168.100.131:8080:8080"
+    volumes:
+      - ./data:/var/data
+    init: true
